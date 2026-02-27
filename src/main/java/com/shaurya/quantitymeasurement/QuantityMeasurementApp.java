@@ -2,25 +2,33 @@ package com.shaurya.quantitymeasurement;
 
 import java.util.Objects;
 
+import com.shaurya.quantitymeasurement.Length.LengthUnit;
+
 public class QuantityMeasurementApp {
-	public static void demonstrateFeetEquality() {
-		Feet feet1=new Feet(88.0);
-		Feet feet2=new Feet(88.0);
-		if(feet1.equals(feet2)) {
-			System.out.println("Both quantity(Feet) are equal (True)");
-		}else {
-			System.out.println("Both quantity(Feet) are not equal (False)");
+	public static void comparision(String temp, Length l1, Length l2) {
+		if(l1.equals(l2)) {
+			System.out.println(temp+ " is equals");
 		}
+		else {
+			System.out.println(temp+" is not equals");
+		}
+	}
+	public static void demonstrateFeetEquality() {
+		Length length1 = new Length(1.0, LengthUnit.FEET);
+		Length length2 = new Length(12.0, LengthUnit.INCHES);
+		comparision("Feet" , length1, length2);
 	}
 	public static void demonstrateInchesEquality() {
-		Inches inch1=new Inches(10.0);
-		Inches inch2=new Inches(10.0);
-		if(inch1.equals(inch2)) {
-			System.out.println("Both quantity(Inches) are equal (True)");
-		}else {
-			System.out.println("Both quantity(Inches) are not equal (False)");
-		}
+		Length length1 = new Length(1.0, LengthUnit.FEET);
+		Length length2 = new Length(12.0, LengthUnit.INCHES);
+		comparision("Inches" , length1, length2);
 	}
+	public static void demonstrateFeetInchesComparision() {
+		Length length1 = new Length(1.0, LengthUnit.FEET);
+		Length length2 = new Length(12.0, LengthUnit.INCHES);
+		System.out.println("Are they equals? "+ length1.equals(length2));
+	}
+	
 	public static class Feet{
 		private final double value;
 		
@@ -45,6 +53,7 @@ public class QuantityMeasurementApp {
 	public static void main(String[] args) {
 		demonstrateFeetEquality();
 		demonstrateInchesEquality();
+		demonstrateFeetInchesComparision();
 	}
 	public static class Inches{
 private final double value;

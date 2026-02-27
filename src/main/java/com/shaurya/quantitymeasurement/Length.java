@@ -3,11 +3,12 @@ package com.shaurya.quantitymeasurement;
 public class Length {
 	private double value;
 	private LengthUnit unit;
-	
+	private static final double EPSILON=0.0001;
 	public enum LengthUnit{
 		FEET(12.0),
-		INCHES(1.0);
-		
+		INCHES(1.0),
+		YARDS(36.0),
+		CENTIMETERS(0.393701);
 		private final double conversionFactor;
 		
 		
@@ -37,7 +38,7 @@ public class Length {
 				return false;
 			}
 			Length length = (Length)(obj);
-			return Double.compare(this.convertToBaseUnit(), length.convertToBaseUnit())==0;
+			return Math.abs(this.convertToBaseUnit() - length.convertToBaseUnit())<EPSILON;
 		}
 		@Override
 		public int hashCode() {
@@ -45,5 +46,3 @@ public class Length {
 		}
 
 		}
-
-

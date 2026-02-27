@@ -14,12 +14,12 @@ public class QuantityMeasurementApp {
 		}
 	}
 	public static void demonstrateFeetEquality() {
-		Length length1 = new Length(1.0, LengthUnit.FEET);
-		Length length2 = new Length(12.0, LengthUnit.INCHES);
+		Length length1 = new Length(12.0, LengthUnit.FEET);
+		Length length2 = new Length(12.0, LengthUnit.FEET);
 		comparision("Feet" , length1, length2);
 	}
 	public static void demonstrateInchesEquality() {
-		Length length1 = new Length(1.0, LengthUnit.FEET);
+		Length length1 = new Length(12.0, LengthUnit.INCHES);
 		Length length2 = new Length(12.0, LengthUnit.INCHES);
 		comparision("Inches" , length1, length2);
 	}

@@ -1,6 +1,5 @@
 package com.shaurya.quantitymeasurement;
 
-
 public enum WeightUnit implements IMeasurable {
 	MILLIGRAM(0.000001),
 	GRAM(0.001),

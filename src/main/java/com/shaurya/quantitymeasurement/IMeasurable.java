@@ -1,5 +1,6 @@
 package com.shaurya.quantitymeasurement;
 
+
 public interface IMeasurable {
 	
 	public double getConversionFactor();

@@ -3,8 +3,8 @@ package com.shaurya.quantitymeasurement;
 import java.util.Objects;
 
 import com.shaurya.quantitymeasurement.Length.LengthUnit;
-
 public class QuantityMeasurementApp {
+	
 	public static void demonstrateLengthComparison(Length l1, Length l2) {
 		if(l1.equals(l2)) {
 			System.out.println("Both lengths are equal (true)");
@@ -22,8 +22,16 @@ public class QuantityMeasurementApp {
 		Length l=new Length(value,sourceUnit);
 		return l.convertTo(targetUnit);
 	}
+	
+	public static void demonstrateLengthAddition(Length l1, Length l2) {
+		Length additionResult=l1.add(l2);
+		System.out.println("After addition: "+additionResult);
+	}
 
 	public static void main(String[] args) {
+		
+		demonstrateLengthAddition(new Length(1.0,Length.LengthUnit.FEET),
+								  new Length(36.0,Length.LengthUnit.INCHES));
 		
 		System.out.print("Length coversion: ");
 		System.out.println(convert(1,Length.LengthUnit.FEET,Length.LengthUnit.INCHES)+
@@ -50,4 +58,5 @@ public class QuantityMeasurementApp {
 									new Length(1.0,Length.LengthUnit.FEET));
 		
 	}
-	}
+
+}

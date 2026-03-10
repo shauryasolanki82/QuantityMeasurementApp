@@ -1,8 +1,5 @@
 package com.shaurya.quantitymeasurement;
 
-import java.util.Objects;
-
-import com.shaurya.quantitymeasurement.Length.LengthUnit;
 public class QuantityMeasurementApp {
 	
 	public static void demonstrateLengthComparison(Length l1, Length l2) {
@@ -25,7 +22,12 @@ public class QuantityMeasurementApp {
 	
 	public static void demonstrateLengthAddition(Length l1, Length l2) {
 		Length additionResult=l1.add(l2);
-		System.out.println("After addition: "+additionResult);
+		System.out.println(l1+" + "+l2+" = "+additionResult);
+	}
+	
+	public static void demonstrateTargetLengthAddition(Length l1, Length l2, Length.LengthUnit unit) {
+		Length result=l1.add(l2, unit);
+		System.out.println("("+l1+" + "+l2+") "+unit+" = "+result);
 	}
 
 	public static void main(String[] args) {
@@ -33,9 +35,13 @@ public class QuantityMeasurementApp {
 		demonstrateLengthAddition(new Length(1.0,Length.LengthUnit.FEET),
 								  new Length(36.0,Length.LengthUnit.INCHES));
 		
+		demonstrateTargetLengthAddition(new Length(1.0,Length.LengthUnit.FEET),
+				  						new Length(36.0,Length.LengthUnit.INCHES),
+				  						Length.LengthUnit.YARDS);
+		
 		System.out.print("Length coversion: ");
 		System.out.println(convert(1,Length.LengthUnit.FEET,Length.LengthUnit.INCHES)+
-							" "+Length.LengthUnit.INCHES);
+									" "+Length.LengthUnit.INCHES);
 		
 		System.out.print("Comparison btw Feet & Inch: ");
 		demonstrateLengthComparison(new Length(1.0,Length.LengthUnit.FEET),

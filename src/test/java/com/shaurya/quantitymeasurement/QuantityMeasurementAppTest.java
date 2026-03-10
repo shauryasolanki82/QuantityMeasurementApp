@@ -6,6 +6,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import org.junit.jupiter.api.Test;
 
+
 class QuantityMeasurementAppTest {
 
     private static final double EPSILON = 1e-6;

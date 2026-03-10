@@ -1,6 +1,5 @@
 package com.shaurya.quantitymeasurement;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -368,7 +367,7 @@ class VolumeTest {
         Quantity<VolumeUnit> v1 = new Quantity<>(1.0, VolumeUnit.LITRE);
         Quantity<VolumeUnit> v2 = new Quantity<>(0.0, VolumeUnit.LITRE);
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ArithmeticException.class,
                 () -> v1.divide(v2));
     }
 }

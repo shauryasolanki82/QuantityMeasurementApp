@@ -1,14 +1,14 @@
-package com.shaurya.quantitymeasurement;
+package com.shaurya.quantitymeasurement.domain;
 
-public enum LengthUnit implements IMeasurable{
-	FEET(12.0),
-	INCHES(1.0),
-	YARDS(36),
-	CENTIMETERS(1.0/2.54);
+
+public enum VolumeUnit implements IMeasurable {
+	MILLILITRE(0.001),
+	LITRE(1.0),
+	GALLON(3.78541);
 	
 	private final double conversionFactor;
 	
-	LengthUnit(double conversionFactor) {
+	VolumeUnit(double conversionFactor){
 		this.conversionFactor=conversionFactor;
 	}
 	
@@ -18,10 +18,11 @@ public enum LengthUnit implements IMeasurable{
 	}
 	
 	public double convertToBaseUnit(double value) {
-		return value * getConversionFactor(); 
+		return value*getConversionFactor();
 	}
 	
 	public double convertFromBaseUnit(double value) {
 		return value/getConversionFactor();
 	}
+	
 }

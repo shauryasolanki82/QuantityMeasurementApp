@@ -1,4 +1,4 @@
-package com.shaurya.quantitymeasurement;
+package com.shaurya.quantitymeasurement.domain;
 
 import java.util.function.DoubleBinaryOperator;
 

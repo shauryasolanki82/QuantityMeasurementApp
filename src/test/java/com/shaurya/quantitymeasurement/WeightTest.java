@@ -5,6 +5,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
 
+import com.shaurya.quantitymeasurement.domain.Quantity;
+import com.shaurya.quantitymeasurement.domain.WeightUnit;
+
 import org.junit.jupiter.api.Test;
 
 class WeightTest {

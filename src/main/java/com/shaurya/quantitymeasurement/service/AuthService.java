@@ -2,7 +2,6 @@ package com.shaurya.quantitymeasurement.service;
 
 import com.shaurya.quantitymeasurement.model.*;
 import com.shaurya.quantitymeasurement.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  *
  */
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
@@ -31,6 +30,16 @@ public class AuthService {
     private final PasswordEncoder      passwordEncoder;
     private final JwtService           jwtService;
     private final AuthenticationManager authenticationManager;
+
+    public AuthService(UserRepository userRepository, 
+                       PasswordEncoder passwordEncoder, 
+                       JwtService jwtService, 
+                       AuthenticationManager authenticationManager) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
 
     // register new user
     
@@ -77,21 +86,27 @@ public class AuthService {
     // login existing user
     
     public AuthResponse login(LoginRequest request) {
-        logger.info("Login attempt for user: {}", request.getUsername());
+        logger.info("Login attempt for identification: {}", request.getUsername());
 
-        
-        authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()
-            )
-        );
+        try {
+            // Spring Security will now use the updated UserDetailsService 
+            // to find the user by either username or email automatically.
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    request.getUsername(),
+                    request.getPassword()
+                )
+            );
+        } catch (BadCredentialsException e) {
+            logger.warn("Authentication failed for '{}': Invalid credentials", request.getUsername());
+            throw e;
+        }
 
         User user = userRepository.findByUsername(request.getUsername())
-            .orElseThrow(() ->
-                new UsernameNotFoundException("User not found: " + request.getUsername()));
+            .orElseGet(() -> userRepository.findByEmail(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + request.getUsername())));
 
-        logger.info("User '{}' logged in successfully", request.getUsername());
+        logger.info("User '{}' (ID: {}) authenticated successfully", user.getUsername(), user.getId());
 
         // Generate new tokens
         String jwtToken     = jwtService.generateToken(user);

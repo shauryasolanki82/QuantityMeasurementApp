@@ -3,7 +3,6 @@ package com.shaurya.quantitymeasurement.config;
 import com.shaurya.quantitymeasurement.security.JwtAuthenticationFilter;
 
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -19,11 +18,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider  authenticationProvider;
+
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, 
+                         AuthenticationProvider authenticationProvider) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.authenticationProvider = authenticationProvider;
+    }
 
     private static final String[] PUBLIC_URLS = {
         "/auth/**",
